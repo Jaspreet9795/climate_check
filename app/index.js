@@ -70,8 +70,8 @@ export default function Home () {
 
         <View style={styles.view}>
           {/* <Text style={styles.text}> Humidity          {JSON.stringify(data.main.humidity)}</Text>
-          <Text style={styles.text}> Temperature       {JSON.stringify(data.main.temp)} </Text> */}
-          <Text></Text>
+          <Text style={styles.text}> Temperature       {JSON.stringify(data.main.temp)} </Text>
+          <Text></Text> */}
         </View>
       </ImageBackground>
     </SafeAreaView>
