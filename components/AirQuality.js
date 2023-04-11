@@ -73,12 +73,12 @@ export default function AirQualityScreen ({route}) {
     const pm25Text = <Text>{pm25}</Text>
     const pm10Title = <Text>PM 10</Text>
     const pm10Text = <Text>{pm10}</Text>
-    const pm25ExplanationText = <Text>PM10 are very small particles found in dust and smoke. They have a diameter of 10 micrometres (0.01 mm) or smaller. PM10 particles are small enough to get into your throat and lungs. High levels of PM10 can make you cough, your nose run and eyes sting.</Text>
-    const pm10ExplanationText = <Text>PM2.5 are very small particles usually found in smoke. They have a diameter of 2.5 micrometres (0.0025 mm) or smaller. Breathing in PM2.5 particles can affect your health. PM2.5 particles are small enough for you to breath them deeply into your lungs. Sometimes particles can enter your bloodstream.</Text>
+    const pm25ExplanationText = <Text style={{margin:10 , marginBottom: 0}}>PM10 are very small particles found in dust and smoke. They have a diameter of 10 micrometres (0.01 mm) or smaller. PM10 particles are small enough to get into your throat and lungs. High levels of PM10 can make you cough, your nose run and eyes sting.</Text>
+    const pm10ExplanationText = <Text style={{margin:10, marginTop:0}} >PM2.5 are very small particles usually found in smoke. They have a diameter of 2.5 micrometres (0.0025 mm) or smaller. Breathing in PM2.5 particles can affect your health. PM2.5 particles are small enough for you to breath them deeply into your lungs. Sometimes particles can enter your bloodstream.</Text>
 
   return (
     <View>
-      <Card>
+      <Card style={{margin:10}}>
         <Card.Title
           title={pm25Title}
           subtitle={pm25Text}
@@ -89,6 +89,42 @@ export default function AirQualityScreen ({route}) {
           subtitle={pm10Text}
           left={getIconBasedOnPM10(pm10)}
         ></Card.Title>
+        </Card>
+        <Card style={{margin:10}}>
+        <DataTable>
+          <DataTable.Header>
+            <DataTable.Title>Air Quality Level</DataTable.Title>
+            <DataTable.Title>PM2.5 µg/m3</DataTable.Title>
+            <DataTable.Title>PM10 µg/m3</DataTable.Title>
+          </DataTable.Header>
+          <DataTable.Row>
+            <DataTable.Cell>Good</DataTable.Cell>
+            <DataTable.Cell>Less Than 25</DataTable.Cell>
+            <DataTable.Cell>Less Than 40</DataTable.Cell>
+          </DataTable.Row>
+          <DataTable.Row>
+            <DataTable.Cell>Fair</DataTable.Cell>
+            <DataTable.Cell>25-50</DataTable.Cell>
+            <DataTable.Cell>40-80</DataTable.Cell>
+          </DataTable.Row>
+          <DataTable.Row>
+            <DataTable.Cell>Poor</DataTable.Cell>
+            <DataTable.Cell>50-100</DataTable.Cell>
+            <DataTable.Cell>80-120</DataTable.Cell>
+          </DataTable.Row>
+          <DataTable.Row>
+            <DataTable.Cell>Very Poor</DataTable.Cell>
+            <DataTable.Cell>100-300</DataTable.Cell>
+            <DataTable.Cell>120-300</DataTable.Cell>
+          </DataTable.Row>
+          <DataTable.Row>
+            <DataTable.Cell>Extremely Poor</DataTable.Cell>
+            <DataTable.Cell>More than 300</DataTable.Cell>
+            <DataTable.Cell>More than 300</DataTable.Cell>
+          </DataTable.Row>
+        </DataTable>
+        </Card>
+        <Card style={{margin:10}}>
         {pm25ExplanationText}
         <Text>{"\n"}</Text>
         {pm10ExplanationText}
@@ -105,5 +141,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  }, 
+  text:{
+    margin:10
   }
 })

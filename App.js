@@ -3,13 +3,13 @@ import React from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { Button, Provider } from 'react-native-paper'
+import { Button, Divider, Provider } from 'react-native-paper'
 import { TextInput, DataTable, Card, Avatar } from 'react-native-paper'
 
 // import CustomNavigationBar from './components/CustomNavigationBar'
 import AirQualityScreen from './components/AirQuality'
 import CurrentWeather from './components/CurrentWeather'
-// import Forecast from './components/Forecast'
+import Forecast from './components/forecast'
 
 const Stack = createStackNavigator()
 
@@ -34,6 +34,7 @@ function HomeScreen ({ navigation }) {
   const [humidity, setHumidity] = React.useState(0)
   const [lat, setLat]= React.useState(37.6688)
   const [lon, setLon]= React.useState(-122.0810)
+  const [weatherCondition, setWeatherCondition]= React.useState([])
 
 
   React.useEffect(() => {
@@ -46,6 +47,8 @@ function HomeScreen ({ navigation }) {
       })
       .catch(err => console.log(err))
   }, [place])
+
+  console.log('Current data ' + place + ' ' + JSON.stringify(data))
 
   React.useEffect(() => {
     if (
@@ -92,6 +95,14 @@ function HomeScreen ({ navigation }) {
       setLon(data.coord.lon)
       console.log("Long is :" + lon)
     }
+    if (
+      data !== undefined &&
+      data.weather !== undefined &&
+      data.weather[0] !== undefined
+    ) {
+      setWeatherCondition(data.weather[0].main)
+      console.log("Weather is: " + weatherCondition)
+    }
   }, [data])
 
    
@@ -102,41 +113,28 @@ function HomeScreen ({ navigation }) {
         value={place}
         onChangeText={place => setPlace(place)}
       />
-      <CurrentWeather currTemp={currTemp} low={low} high={high} humidity={humidity} lat={lat} lon={lon}></CurrentWeather>
-      {/* <Forecast></Forecast> */}
-      {/* <Card>
-        <Card.Title
-          title='Current Temperature'
-          subtitle={currTemp}
-          left={LeftContent}
-        ></Card.Title>
-      </Card>
-      <Card>
-        <Card.Title
-          title='High'
-          subtitle={high}
-          left={highTempIcon}
-        ></Card.Title>
-      </Card>
-      <Card>
-        <Card.Title title='Low' subtitle={low} left={lowTempIcon}></Card.Title>
-      </Card>
-      <Card>
-        <Card.Title
-          title='Humidity'
-          subtitle={humidity}
-          left={humidityIcon}
-        ></Card.Title>
-      </Card> */}
+      <CurrentWeather currTemp={currTemp} low={low} high={high} humidity={humidity} lat={lat} lon={lon} weatherCondition={weatherCondition}></CurrentWeather>
+     
       <Button
+      style={{justifyContent:"space-evenly", margin:10, overflow:"hidden"}}
         mode='contained'
         onPress={() => navigation.navigate('Air Quality', {
           lat,
           lon
         })}
-      >
-      <Text>Air Quality</Text>
-      </Button> 
+      > <Text>Air Quality</Text> </Button> 
+      
+        <Button
+        style={{justifyContent:"space-evenly" , margin:10, overflow:"hidden"}}
+        mode='contained'
+        onPress={() => navigation.navigate('Forecast', {
+          lat,
+          lon
+        })}
+      ><Text>Forecast</Text></Button>
+    
+      
+    
     </ScrollView>
   )
 }
@@ -155,6 +153,10 @@ export default function App () {
           <Stack.Screen
             name='Air Quality'
             component={AirQualityScreen}
+          ></Stack.Screen>
+          <Stack.Screen
+            name='Forecast'
+            component={Forecast}
           ></Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
