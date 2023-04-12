@@ -6,7 +6,7 @@ import { TextInput, DataTable, Card, Avatar } from 'react-native-paper'
 
 const screenWidth = Dimensions.get('window').width
 
-function getLabels (forecast) {
+function getLabels () {
   let res = [0, 1, 2, 3, 4]
   return res
 }
@@ -21,17 +21,43 @@ function getHighData (forecast) {
   for (let index = 0; index < forecast.list.length; index++) {
     console.log('forecast i ' + forecast.list)
     const element = forecast.list[index]
+
     res.data.push(element.main.temp)
   }
   console.log('res is ' + res)
   return res
 }
 
+function getDate(forecast){
+  let dates = new Set()
+  if (forecast.list !== undefined){
+    for (let index = 0; index < forecast.list.length; index++) {
+      const element = forecast.list[index]
+      const  date = element.dt_txt.split(" ")[0]
+      dates.add(date)
+  }
+  console.log(" DATES ARE: "+ dates)
+  return dates
+
+}}
+
+
 export default function Forecast ({ route }) {
   const [forecast, setForecast] = useState({})
   const [loaded, setLoaded] = useState(false)
+  
+
+  const [temp, setTemp]=  useState(0)
+  const [weatherState, setWeatherState]= useState(0)
+
+  
+
   const lat = route.params.lat
   const lon = route.params.lon
+
+
+  const temperature= <Text>Temperature</Text>
+  const avgTemp= <Text>{temp}</Text>
   console.log('forecast lat ' + lat + ' lon ' + lon)
 
   useEffect(() => {
@@ -48,13 +74,29 @@ export default function Forecast ({ route }) {
   }, [])
 
 
+  // React.useEffect(() => {
+    // if (
+    //   forecast !== undefined &&
+    //   forecast.list !== undefined){
+    //     for (let index = 0; index < forecast.list.length; index++) {
+    //       const element = forecast.list[index]
+    //       setTemp(element.temp)
+    //       setWeatherState(element.weather.main)
+    //     }
+
+    //   }
+    // })
+     
+  
+
+
   return (
     <View>
       <Card>
         <Card.Title title='5 Day forecast'></Card.Title>
         {loaded && <LineChart
           data={{
-            labels: getLabels(forecast),
+            labels: getLabels(),
             datasets: [getHighData(forecast)]
           }}
           width={Dimensions.get('window').width} // from react-native
@@ -83,6 +125,18 @@ export default function Forecast ({ route }) {
             borderRadius: 16
           }}
         />}
+      </Card>
+
+      <Card> 
+      {/* <Text>{getDate(forecast)}</Text> */}
+        <Card.Title
+        
+        // title={temperature}
+        // subtitle={avgTemp}
+        // left ={getDate(forecast)[0]}
+        >
+        
+        </Card.Title>
       </Card>
     </View>
   )

@@ -55,47 +55,40 @@ export default function CurrentWeather ({ currTemp, high, low, humidity, lat, lo
   const humidityTitle = <Text>Humidity</Text>
   const humidityText = <Text>{humidity}</Text>
   return (
-    <View>
-      <Card>
-        {getWeatherImg(weatherCondition)}
-      </Card>
-      <Card>
+    <View style={{marginTop:10}}>
+      {/* <Card>
+       
+      </Card> */}
+      <Card >
+      {getWeatherImg(weatherCondition)}
         <Card.Title
         title={weather}
         subtitle={weatherText}
         left ={weatherIcon}
         ></Card.Title>
-      </Card>
-      <Card>
-        <Card.Title
+         <Card.Title
           title={title}
           subtitle={temp}
           left={LeftContent}
         ></Card.Title>
-      </Card>
-      <Card>
         <Card.Title
           title={lowTitle}
           subtitle={lowText}
           left={lowTempIcon}
         ></Card.Title>
-      </Card>
-      <Card>
-        <Card.Title
+         <Card.Title
           title={highTitle}
           subtitle={highText}
           left={highTempIcon}
         ></Card.Title>
-      </Card>
-      <Card>
         <Card.Title
           title={humidityTitle}
           subtitle={humidityText}
           left={humidityIcon}
         ></Card.Title>
+
       </Card>
-     {/* <Forecast /> */}
-     {/* <Forecast lat={lat} lon={lon}></Forecast> */}
+
     </View>
   )
 }
