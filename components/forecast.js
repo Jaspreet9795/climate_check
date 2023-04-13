@@ -33,11 +33,12 @@ function getDate(forecast){
   if (forecast.list !== undefined){
     for (let index = 0; index < forecast.list.length; index++) {
       const element = forecast.list[index]
-      const  date = element.dt_txt.split(" ")[0]
+      let  date = element.dt_txt.split(" ")[0]
+      date = date.split("-")[1] + '/' +  date.split("-")[2] 
       dates.add(date)
   }
   console.log(" DATES ARE: "+ dates)
-  return dates
+  return Array.from(dates)
 
 }}
 
@@ -92,11 +93,12 @@ export default function Forecast ({ route }) {
 
   return (
     <View>
-      <Card>
-        <Card.Title title='5 Day forecast'></Card.Title>
+      <Card style={{width: screenWidth}}>
+        <Card.Title  title='5 Day forecast'></Card.Title>
         {loaded && <LineChart
+         
           data={{
-            labels: getLabels(),
+            labels: getDate(forecast),
             datasets: [getHighData(forecast)]
           }}
           width={Dimensions.get('window').width} // from react-native
@@ -127,17 +129,17 @@ export default function Forecast ({ route }) {
         />}
       </Card>
 
-      <Card> 
+      {/* <Card>  */}
       {/* <Text>{getDate(forecast)}</Text> */}
-        <Card.Title
+        {/* <Card.Title */}
         
-        // title={temperature}
+        {/* // title={temperature}
         // subtitle={avgTemp}
         // left ={getDate(forecast)[0]}
         >
-        
-        </Card.Title>
-      </Card>
+         */}
+        {/* </Card.Title>
+      </Card> */}
     </View>
   )
 }

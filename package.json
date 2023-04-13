@@ -8,9 +8,11 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/elements": "*",
     "@react-navigation/native": "*",
     "@react-navigation/stack": "*",
+    "@rneui/themed": "^4.0.0-rc.7",
     "babel-plugin-inline-dotenv": "^1.7.0",
     "expo": "~47.0.14",
     "expo-constants": "~14.0.2",
