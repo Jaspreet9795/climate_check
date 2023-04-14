@@ -24,13 +24,11 @@ export default function App () {
 
   
   return (
-    // <Provider>
-    
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Home' 
       // screenOptions={{headerLeft : ()=><Img/>}}
       >
-        <Stack.Screen name='Rainbow' component={HomeScreen}></Stack.Screen>
+        <Stack.Screen style={{flexDirection:"row"}} name='WeatherFun' component={HomeScreen}></Stack.Screen>
         <Stack.Screen
           name='Air Quality'
           component={AirQualityScreen}
@@ -46,10 +44,9 @@ export default function App () {
         <Tab.Screen name='Air Quality'component={AirQualityScreen}></Tab.Screen>
         <Tab.Screen name='Forecast' component={Forecast}></Tab.Screen>
       </Tab.Navigator> */}
-
  {/* <HomeScreen></HomeScreen> */}
 
     </NavigationContainer>
-    // </Provider>
+  
   )
 }
