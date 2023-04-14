@@ -4,6 +4,8 @@ import CurrentWeather from './CurrentWeather'
 import 'react-native-gesture-handler'
 import React from 'react'
 import { Text, StyleSheet, View, ImageBackground } from 'react-native'
+import Autocomplete from 'react-native-autocomplete-input';
+
 
 const cloudImg = require('../assets/cloudy.jpeg')
 const sunnyImg = require('../assets/sunny.jpeg')
@@ -12,6 +14,8 @@ const hazeImg = require('../assets/Haze.jpeg')
 const SnowImg = require('../assets/Snow.jpeg')
 const mistImg = require('../assets/mist.jpeg')
 const smokeImg = require('../assets/smoke.jpeg')
+
+
 
 export default function HomeScreen ({ navigation }) {
   const apiKey = process.env.API_KEY
@@ -129,16 +133,6 @@ export default function HomeScreen ({ navigation }) {
           style={{ margin: 10, backgroundColor: 'white' }}
         ></Searchbar>
 
-{/* <Autocomplete
-      data={data}
-      value={query}
-      onChangeText={place => setPlace(place)}
-      flatListProps={{
-        keyExtractor: (_, idx) => idx,
-        renderItem: ({ item }) => <Text>{item}</Text>,
-      }}
-    /> */}
-
 
         <CurrentWeather
           currTemp={currTemp}
@@ -183,7 +177,8 @@ export default function HomeScreen ({ navigation }) {
             onPress={() =>
               navigation.navigate('Forecast', {
                 lat,
-                lon
+                lon, 
+                place
               })
             }
           >

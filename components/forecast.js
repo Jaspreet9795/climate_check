@@ -1,7 +1,7 @@
-import  React, {useState, useEffect } from 'react'
-import { View, Text, StyleSheet, Dimensions } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, Dimensions } from 'react-native'
 import { LineChart } from 'react-native-chart-kit'
-import {  Card, DataTable } from 'react-native-paper'
+import { Card } from 'react-native-paper'
 
 import ForecastShow from './ForecastShow'
 
@@ -9,18 +9,15 @@ const screenWidth = Dimensions.get('window').width
 
 function getHighData (forecast) {
   let res = { data: [] }
-  // console.log('forecast in function is ' + JSON.stringify(forecast))
-  // console.log('res before is ' + JSON.stringify(res))
-  
+
   if (forecast.list === undefined) {
     return res
   }
   for (let index = 0; index < forecast.list.length; index++) {
-    // console.log('forecast i ' + forecast.list)
     const element = forecast.list[index]
     res.data.push(element.main.temp)
   }
-  // console.log('res is ' + res)
+
   return res
 }
 
@@ -33,29 +30,19 @@ function getDate (forecast) {
       date = date.split('-')[1] + '/' + date.split('-')[2]
       dates.add(date)
     }
-    // console.log(' DATES ARE: ' + dates)
     return Array.from(dates)
   }
 }
-
-
 
 export default function Forecast ({ route }) {
   const [forecast, setForecast] = useState({})
   const [loaded, setLoaded] = useState(false)
 
-  const [temp, setTemp] = useState(0)
-  const [weatherState, setWeatherState] = useState(0)
-
   const lat = route.params.lat
   const lon = route.params.lon
+  const place = route.params.place
 
-  const datesArray= getDate(forecast)
-  console.log("Dates Array 2: "+ datesArray)
- 
-  // const temperature = <Text>Temperature</Text>
-  // const avgTemp = <Text>{temp}</Text>
-  console.log('forecast lat ' + lat + ' lon ' + lon)
+  const datesArray = getDate(forecast)
 
   useEffect(() => {
     const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${process.env.API_KEY}`
@@ -69,11 +56,20 @@ export default function Forecast ({ route }) {
       .catch(err => console.log('error is ' + err))
   }, [])
 
-
   return (
-    <View style={{flex:1, backgroundColor:"lightblue"}}>
-      <Card style={{ width: screenWidth, backgroundColor:"white" , marginBottom:20, marginTop:20}}>
-        <Card.Title  title='5 Day Temperature Review' style={{marginLeft:90}}></Card.Title>
+    <View style={{ flex: 1, backgroundColor: 'lightblue' }}>
+      <Card
+        style={{
+          width: screenWidth,
+          backgroundColor: 'white',
+          marginBottom: 20,
+          marginTop: 20
+        }}
+      >
+        <Card.Title
+          title={`${place} 5 Day Forecast`}
+          style={{ marginLeft: 90 }}
+        ></Card.Title>
         {loaded && (
           <LineChart
             data={{
@@ -86,18 +82,18 @@ export default function Forecast ({ route }) {
             yAxisInterval={1} // optional, defaults to 1
             chartConfig={{
               backgroundColor: '#ffffff',
-              backgroundGradientFrom: '#fb8c00',
-              backgroundGradientTo: '#ffa726',
+              backgroundGradientFrom: '#E5E5E5',
+              backgroundGradientTo: '#E5E5E5',
               decimalPlaces: 2, // optional, defaults to 2dp
-              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              color: (opacity = 1) => `rgba(26,56,80, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(26,56,80, ${opacity})`,
               style: {
                 borderRadius: 16
               },
               propsForDots: {
-                r: '6',
-                strokeWidth: '2',
-                stroke: '#ffa726'
+                r: '3',
+                strokeWidth: '1',
+                stroke: '#9FC1DB'
               }
             }}
             bezier
@@ -109,9 +105,11 @@ export default function Forecast ({ route }) {
         )}
       </Card>
       <View>
-      <ForecastShow forecast={forecast} datesArray={datesArray} ></ForecastShow>
+        <ForecastShow
+          forecast={forecast}
+          datesArray={datesArray}
+        ></ForecastShow>
       </View>
-  
     </View>
   )
 }

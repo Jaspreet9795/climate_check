@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import {
   View,
   Text,
@@ -6,15 +6,7 @@ import {
   ImageBackground,
   ScrollView
 } from 'react-native'
-import {
-  DataTable,
-  Card,
-  Avatar,
-  Modal,
-  IconButton
-} from 'react-native-paper'
-
-
+import { DataTable, Card, Avatar, Modal, IconButton } from 'react-native-paper'
 
 const airImg = require('../assets/air.jpeg')
 
@@ -91,7 +83,6 @@ export default function AirQualityScreen ({ route }) {
   const hideModal = () => setVisible(false)
   const containerStyle = { backgroundColor: 'white', padding: 20, margin: 10 }
 
-  //  console.log("Lattitude in Air data :" + lat)
   useEffect(() => {
     const url = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${route.params.lat}&lon=${route.params.lon}&appid=${process.env.API_KEY}`
     fetch(url)
@@ -141,7 +132,12 @@ export default function AirQualityScreen ({ route }) {
         <Modal
           visible={visible}
           onDismiss={hideModal}
-          style={{ zIndex: 1, position: 'absolute', marginTop: 500 }}
+          style={{
+            zIndex: 1,
+            position: 'absolute',
+            marginTop: 500,
+            margin: 20
+          }}
           contentContainerStyle={containerStyle}
         >
           <ScrollView>
@@ -151,11 +147,7 @@ export default function AirQualityScreen ({ route }) {
           </ScrollView>
         </Modal>
 
-        {/* <Button style={{marginTop: 30}} onPress={showModal}>
-        Show
-      </Button> */}
-
-        <Card style={{ margin: 10, marginBottom: 5 }}>
+        <Card style={{ margin: 20, marginBottom: 5, backgroundColor: 'white' }}>
           <Card.Title
             title={pm25Title}
             subtitle={pm25Text}
@@ -171,7 +163,7 @@ export default function AirQualityScreen ({ route }) {
           ></Card.Title>
         </Card>
 
-        <Card style={{ margin: 10 }}>
+        <Card style={{ margin: 20, backgroundColor: 'white' }}>
           <DataTable>
             <DataTable.Header>
               <DataTable.Title>Air Quality Level</DataTable.Title>
@@ -205,11 +197,6 @@ export default function AirQualityScreen ({ route }) {
             </DataTable.Row>
           </DataTable>
         </Card>
-        {/* <Card style={{margin:10}}>
-        {pm25ExplanationText}
-        <Text>{"\n"}</Text>
-        {pm10ExplanationText}
-      </Card> */}
       </ImageBackground>
     </View>
   )
@@ -218,8 +205,6 @@ export default function AirQualityScreen ({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1
-    // alignItems: 'center',
-    // justifyContent: 'center'
   },
   text: {
     margin: 10
