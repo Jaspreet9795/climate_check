@@ -1,21 +1,17 @@
 import { Button, Provider } from 'react-native-paper'
-import { Searchbar, BottomNavigation } from 'react-native-paper'
 import CurrentWeather from './CurrentWeather'
 import 'react-native-gesture-handler'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Text, StyleSheet, View, ImageBackground } from 'react-native'
-import Autocomplete from 'react-native-autocomplete-input';
-
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 
 const cloudImg = require('../assets/cloudy.jpeg')
-const sunnyImg = require('../assets/sunny.jpeg')
+const sunnyImg = require('../assets/clear.jpeg')
 const rainyImg = require('../assets/Rainy.jpeg')
 const hazeImg = require('../assets/Haze.jpeg')
 const SnowImg = require('../assets/Snow.jpeg')
 const mistImg = require('../assets/mist.jpeg')
 const smokeImg = require('../assets/smoke.jpeg')
-
-
 
 export default function HomeScreen ({ navigation }) {
   const apiKey = process.env.API_KEY
@@ -28,6 +24,7 @@ export default function HomeScreen ({ navigation }) {
   const [lat, setLat] = React.useState(37.6688)
   const [lon, setLon] = React.useState(-122.081)
   const [weatherCondition, setWeatherCondition] = React.useState([])
+  const [searchData, setSearchData] = React.useState([])
 
   React.useEffect(() => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${place}&units=imperial&appid=${apiKey}`
@@ -120,19 +117,113 @@ export default function HomeScreen ({ navigation }) {
     }
   }
 
+  const geoApiOptions = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': process.env.CITY_API_KEY,
+      'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+    }
+  }
+  const GEO_API_URL = 'https://wft-geo-db.p.rapidapi.com/v1/geo'
+
+  useEffect(() => {
+    const url = `${GEO_API_URL}/cities?minPopulation=10000&namePrefix=${place}`
+    fetch(url, geoApiOptions)
+      .catch(err => {
+        console.log('error is ' + err)
+      })
+      .then(res => res.json())
+      .then(res => {
+        console.log('res is ' + JSON.stringify(res))
+        if (res.data.length == 0) {
+          console.log('returning empty')
+          return []
+        }
+        let data = res.data.map(city => {
+          return `${city.name}, ${city.country}`
+        })
+        console.log('returning ' + data)
+
+        return data
+      })
+      .then(res => {
+        setSearchData(res)
+        console.log('searchData is ', searchData)
+      })
+  }, [place])
+
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <ImageBackground
         source={BackgroundImg(weatherCondition)}
         style={styles.image}
+        resizeMode='cover'
       >
-        <Searchbar
+        {/* <Searchbar
           placeholder='Search'
           value={place}
-          onChangeText={place => setPlace(place)}
+          onChangeText={place => {
+            setPlace(place)
+            SearchCity(place)
+            // console.log('City List:' + cityList
+          }}
           style={{ margin: 10, backgroundColor: 'white' }}
-        ></Searchbar>
+        ></Searchbar> */}
 
+        <GooglePlacesAutocomplete
+          styles={{
+            textInput: {
+              height: 55,
+              color: '#5d5d5d',
+              fontSize: 16,
+              width: 7
+            },
+            textInputContainer: {
+              flexDirection: 'row',
+              width: 350,
+              marginLeft: 20,
+              marginRight: 20,
+              marginTop: 20
+            },
+            row: {
+              backgroundColor: '#FFFFFF',
+              padding: 13,
+              height: 34,
+              flexDirection: 'row',
+              width: 350,
+              marginLeft: 20,
+              borderRadius: 6
+            },
+            poweredContainer: {
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              borderBottomRightRadius: 5,
+              borderBottomLeftRadius: 5,
+              borderColor: '#c8c7cc',
+              borderTopWidth: 0.5,
+              marginLeft: 20,
+              marginRight: 20
+            },
+            separator: {
+              height: 0.5,
+              backgroundColor: '#c8c7cc',
+              marginLeft: 20,
+              marginRight: 20
+            }
+          }}
+          placeholder='Search'
+          fetchDetails={true}
+          onPress={(data, details = null) => {
+            setPlace(data.structured_formatting.main_text)
+
+            // console.log("Google : " +JSON.stringify(data))
+            // console.log("Google Place:"+ JSON.stringify(place))
+          }}
+          query={{
+            key: process.env.PLACES_API_KEY,
+            language: 'en'
+          }}
+        />
 
         <CurrentWeather
           currTemp={currTemp}
@@ -145,14 +236,14 @@ export default function HomeScreen ({ navigation }) {
           place={place}
         ></CurrentWeather>
 
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', marginTop:-10, marginBottom:40 }}>
           <Button
             style={{
               justifyContent: 'space-evenly',
-              margin: 15,
-              overflow: 'hidden',
+              margin: 10,
+              // overflow: 'hidden',
               width: 150,
-              marginLeft: 30
+              marginLeft: 40
             }}
             mode='elevated'
             onPress={() =>
@@ -169,15 +260,15 @@ export default function HomeScreen ({ navigation }) {
           <Button
             style={{
               justifyContent: 'space-evenly',
-              margin: 15,
-              overflow: 'hidden',
+              margin: 10,
+              // overflow: 'hidden',
               width: 150
             }}
             mode='elevated'
             onPress={() =>
               navigation.navigate('Forecast', {
                 lat,
-                lon, 
+                lon,
                 place
               })
             }
@@ -196,9 +287,7 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    resizeMode: 'cover',
-    width: '100%',
-    height: '100%'
+    height: 1000
   },
   button: {
     mode: 'elevated',

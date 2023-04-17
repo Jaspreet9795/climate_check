@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { View, Dimensions } from 'react-native'
+import { View,  Dimensions } from 'react-native'
 import { LineChart } from 'react-native-chart-kit'
-import { Card } from 'react-native-paper'
+import { Card} from 'react-native-paper'
 
 import ForecastShow from './ForecastShow'
 
@@ -43,6 +43,8 @@ export default function Forecast ({ route }) {
   const place = route.params.place
 
   const datesArray = getDate(forecast)
+ 
+
 
   useEffect(() => {
     const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${process.env.API_KEY}`
@@ -57,7 +59,7 @@ export default function Forecast ({ route }) {
   }, [])
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'lightblue' }}>
+    <View style={{ flex: 1, backgroundColor: '#1A3850' }}>
       <Card
         style={{
           width: screenWidth,

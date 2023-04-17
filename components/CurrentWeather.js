@@ -164,7 +164,7 @@ export default function CurrentWeather ({
   console.log('Checking Weather 2nd: ' + weatherCondition)
 
   return (
-    <View style={{ marginTop: 10 }}>
+    <View style={{ marginBottom: 20}}>
       <CurrentWeatherShow
         weatherCondition={weatherCondition}
         place={place}
@@ -194,6 +194,6 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
     borderWidth: 1,
     height: 450,
-    margin: 30
+    margin: 20
   }
 })

@@ -2,6 +2,7 @@ import 'react-native-gesture-handler'
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import AirQualityScreen from './components/AirQuality'
 import Forecast from './components/forecast'
@@ -14,9 +15,10 @@ const Stack = createStackNavigator()
 
 export default function App () {
   return (
-    <NavigationContainer>
+    <SafeAreaProvider>
+    <NavigationContainer >
       <Stack.Navigator
-        initialRouteName='Home'
+        // initialRouteName='Home'
         // screenOptions={{headerLeft : ()=><Img/>}}
       >
         <Stack.Screen
@@ -31,5 +33,6 @@ export default function App () {
         <Stack.Screen name='Forecast' component={Forecast}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
+    </SafeAreaProvider>
   )
 }
