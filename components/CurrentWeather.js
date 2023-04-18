@@ -164,7 +164,7 @@ export default function CurrentWeather ({
   console.log('Checking Weather 2nd: ' + weatherCondition)
 
   return (
-    <View style={{ marginBottom: 20}}>
+    <View style={{ marginBottom: 20 }}>
       <CurrentWeatherShow
         weatherCondition={weatherCondition}
         place={place}

@@ -7,7 +7,7 @@ import {
   ScrollView
 } from 'react-native'
 import { DataTable, Card, Avatar, Modal, IconButton } from 'react-native-paper'
-import { Entypo } from '@expo/vector-icons'; 
+import { Entypo } from '@expo/vector-icons'
 
 const airImg = require('../assets/air.jpeg')
 
@@ -74,7 +74,7 @@ function getIconBasedOnPM10 (pm10) {
 }
 
 export default function AirQualityScreen ({ route }) {
-  console.log(' Route:' + JSON.stringify(route))
+  // console.log(' Route:' + JSON.stringify(route))
   const [airData, setAirData] = React.useState({})
   const [pm25, setpm25] = React.useState(0)
   const [pm10, setpm10] = React.useState(0)
@@ -90,7 +90,6 @@ export default function AirQualityScreen ({ route }) {
       .then(res => res.json())
       .then(res => {
         setAirData(res)
-        console.log('Air data is : ' + JSON.stringify(airData))
       })
   }, [])
 
@@ -154,8 +153,13 @@ export default function AirQualityScreen ({ route }) {
             subtitle={pm25Text}
             left={getIconBasedOnPM25(pm25)}
             right={props => (
-              // <IconButton {...props} icon='find' onPress={showModal} />
-              <Entypo name="info-with-circle"  onPress={showModal}    size={24} color="grey" style={{margin:10, marginTop:-5}} />
+              <Entypo
+                name='info-with-circle'
+                onPress={showModal}
+                size={24}
+                color='grey'
+                style={{ margin: 10, marginTop: -5 }}
+              />
             )}
           ></Card.Title>
           <Card.Title

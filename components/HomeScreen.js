@@ -1,15 +1,15 @@
-import { Button, Provider } from 'react-native-paper'
+import React from 'react'
+import { Button} from 'react-native-paper'
 import CurrentWeather from './CurrentWeather'
 import 'react-native-gesture-handler'
-import React, { useEffect } from 'react'
 import { Text, StyleSheet, View, ImageBackground } from 'react-native'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 
 const cloudImg = require('../assets/cloudy.jpeg')
 const sunnyImg = require('../assets/clear.jpeg')
-const rainyImg = require('../assets/Rainy.jpeg')
+const rainyImg = require('../assets/rainy.jpeg')
 const hazeImg = require('../assets/Haze.jpeg')
-const SnowImg = require('../assets/Snow.jpeg')
+const SnowImg = require('../assets/snow.jpeg')
 const mistImg = require('../assets/mist.jpeg')
 const smokeImg = require('../assets/smoke.jpeg')
 
@@ -24,7 +24,7 @@ export default function HomeScreen ({ navigation }) {
   const [lat, setLat] = React.useState(37.6688)
   const [lon, setLon] = React.useState(-122.081)
   const [weatherCondition, setWeatherCondition] = React.useState([])
-  const [searchData, setSearchData] = React.useState([])
+ 
 
   React.useEffect(() => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${place}&units=imperial&appid=${apiKey}`
@@ -117,41 +117,6 @@ export default function HomeScreen ({ navigation }) {
     }
   }
 
-  const geoApiOptions = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': process.env.CITY_API_KEY,
-      'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
-    }
-  }
-  const GEO_API_URL = 'https://wft-geo-db.p.rapidapi.com/v1/geo'
-
-  useEffect(() => {
-    const url = `${GEO_API_URL}/cities?minPopulation=10000&namePrefix=${place}`
-    fetch(url, geoApiOptions)
-      .catch(err => {
-        console.log('error is ' + err)
-      })
-      .then(res => res.json())
-      .then(res => {
-        console.log('res is ' + JSON.stringify(res))
-        if (res.data.length == 0) {
-          console.log('returning empty')
-          return []
-        }
-        let data = res.data.map(city => {
-          return `${city.name}, ${city.country}`
-        })
-        console.log('returning ' + data)
-
-        return data
-      })
-      .then(res => {
-        setSearchData(res)
-        console.log('searchData is ', searchData)
-      })
-  }, [place])
-
   return (
     <View style={{ flex: 1 }}>
       <ImageBackground
@@ -159,17 +124,6 @@ export default function HomeScreen ({ navigation }) {
         style={styles.image}
         resizeMode='cover'
       >
-        {/* <Searchbar
-          placeholder='Search'
-          value={place}
-          onChangeText={place => {
-            setPlace(place)
-            SearchCity(place)
-            // console.log('City List:' + cityList
-          }}
-          style={{ margin: 10, backgroundColor: 'white' }}
-        ></Searchbar> */}
-
         <GooglePlacesAutocomplete
           styles={{
             textInput: {
@@ -215,9 +169,6 @@ export default function HomeScreen ({ navigation }) {
           fetchDetails={true}
           onPress={(data, details = null) => {
             setPlace(data.structured_formatting.main_text)
-
-            // console.log("Google : " +JSON.stringify(data))
-            // console.log("Google Place:"+ JSON.stringify(place))
           }}
           query={{
             key: process.env.PLACES_API_KEY,
@@ -236,12 +187,14 @@ export default function HomeScreen ({ navigation }) {
           place={place}
         ></CurrentWeather>
 
-        <View style={{ flexDirection: 'row', marginTop:-10, marginBottom:40 }}>
+        <View
+          style={{ flexDirection: 'row', marginTop: -10, marginBottom: 40 }}
+        >
           <Button
             style={{
               justifyContent: 'space-evenly',
               margin: 10,
-              // overflow: 'hidden',
+
               width: 150,
               marginLeft: 40
             }}
@@ -261,7 +214,7 @@ export default function HomeScreen ({ navigation }) {
             style={{
               justifyContent: 'space-evenly',
               margin: 10,
-              // overflow: 'hidden',
+
               width: 150
             }}
             mode='elevated'
