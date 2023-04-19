@@ -6,12 +6,18 @@ Title - Climate Check
 4. UI Styled with CSS & React Native paper library. 
 5. Utilized React Native chart library to display a graphical representation of 5 day forecasted temperature data.
    
-![pic](./assets/Screenshot1.png)
-![pic](./assets/Screenshot2.png)
+<img src="./assets/Screenshot1.png" width="50%" height="40%" title="screen1" >
+<img src="./assets/Screenshot2.png" width="50%" height="50%" align="right" title="screen1">
+<img src="./assets/Screenshot3.png" width="50%" height="20%"  title="screen1">
+<img src="./assets/Screenshot4.png" width="50%" height="20%" 
+align="right" title="screen1">
+
+<!-- ![pic](./assets/Screenshot2.png)
 ![pic](./assets/Screenshot3.png)
-![pic](./assets/Screenshot4.png)
+![pic](./assets/Screenshot4.png) -->
 
 <video src='https://www.youtube.com/watch?v=4uBtcztp_nk' width=180></video>
+
 To run this App-
 1. You can clone this repo. 
 2. You need Google places API key and OpenWeather API key. Add the keys to your .env file
