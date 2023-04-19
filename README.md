@@ -8,11 +8,7 @@ Title - Climate Check
    
 <img src="./assets/Screenshot1.png" style=" width:200px; height:400px; float:left" title="screen1"><img src="./assets/Screenshot2.png" style=" width:200px; height:400px; float:right" title="screen1"><img src="./assets/Screenshot3.png" style=" width:200px; height:400px; float:left" title="screen1"><img src="./assets/Screenshot4.png" style=" width:200px; height:400px; float:left" title="screen1">
 
-<!-- ![pic](./assets/Screenshot2.png)
-![pic](./assets/Screenshot3.png)
-![pic](./assets/Screenshot4.png) -->
-
-<video src='https://www.youtube.com/watch?v=4uBtcztp_nk' width=180></video>
+[Climate check video](https://www.youtube.com/watch?v=4uBtcztp_nk)
 
 To run this App-
 1. You can clone this repo. 
