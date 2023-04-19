@@ -6,10 +6,10 @@ Title - Climate Check
 4. UI Styled with CSS & React Native paper library. 
 5. Utilized React Native chart library to display a graphical representation of 5 day forecasted temperature data.
    
-<img src="./assets/Screenshot1.png" style=" width=50px; height=60px; align=left;" title="screen1" >
-<img src="./assets/Screenshot2.png" style=" width=50px; height=60px; align=right;" title="screen1">
-<img src="./assets/Screenshot3.png" style=" width=50px; height=60px; align=left;" title="screen1">
-<img src="./assets/Screenshot4.png" style=" width=50px; height=60px; align=right;"title="screen1">
+<img src="./assets/Screenshot1.png" style=" width:50px; height:60px; align:left;" title="screen1" >
+<img src="./assets/Screenshot2.png" style=" width:50px; height:60px; align:right;" title="screen1">
+<img src="./assets/Screenshot3.png" style=" width:50px; height:60px; align:left;" title="screen1">
+<img src="./assets/Screenshot4.png" style=" width:50px; height:60px; align:right;"title="screen1">
 
 <!-- ![pic](./assets/Screenshot2.png)
 ![pic](./assets/Screenshot3.png)
