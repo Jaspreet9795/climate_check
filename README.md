@@ -1,4 +1,4 @@
-Title - Climate Check
+ **Climate Check**
 
 1. Climate-Check is a React Native mobile app powered by OpenWeather API. 
 2. Users can check the current weather condition, air pollution level, and 5 day forecast for a    particular place. 
@@ -10,10 +10,11 @@ Title - Climate Check
 
 [Climate check video](https://www.youtube.com/watch?v=4uBtcztp_nk)
 
-To run this App-
-1. You can clone this repo. 
-2. You need Google places API key and OpenWeather API key. Add the keys to your .env file
-3. Once, the project is setup, run :- npm start
+To run this App: 
+1. Clone this repo by running `git clone git@github.com:Jaspreet9795/climate_check.git` 
+2. Generate a Google Places API Key by following directions [here](https://console.cloud.google.com/marketplace/product/google/places-backend.googleapis.com?q=search&referrer=search&project=exalted-analogy-373700)
+3. Add the Google Places API key generated in the previous step to your .env file
+4. Once, the project is setup, run `npm start`
 
 
 
